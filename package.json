@@ -1,0 +1,14 @@
+{
+  "name": "jsreport-licensing",
+  "version": "0.0.1",
+  "description": "jsreport extension for enterprise license verification ",
+  "scripts": {},
+  "keywords": [
+    "jsreport"
+  ],
+  "dependencies": {
+    "q-io": "^1.13.1"
+  },
+  "author": "Jan Blaha",
+  "devDependencies": {}
+}
