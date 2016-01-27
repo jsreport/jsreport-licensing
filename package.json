@@ -1,6 +1,6 @@
 {
   "name": "jsreport-licensing",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "jsreport extension for enterprise license verification ",
   "scripts": {},
   "homepage": "https://github.com/jsreport/jsreport-licensing",
