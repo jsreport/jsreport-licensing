@@ -3,7 +3,7 @@ import Studio from 'jsreport-studio'
 Studio.readyListeners.push(async () => {
   let license = Studio.getSettingValueByKey('license', false) === true
 
-  if (Studio.getAllEntities().filter((e) => e.__entitySet === 'templates').length > 5) {
+  if (!license && Studio.getAllEntities().filter((e) => e.__entitySet === 'templates').length > 5) {
     Studio.openModal(() => <div><p>Free license is limited to maximum 5 templates. For production use, please buy
       the enterprise license before you continue.
     </p>
