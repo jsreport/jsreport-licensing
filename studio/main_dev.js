@@ -1,22 +1,33 @@
 import Studio from 'jsreport-studio'
 
 Studio.readyListeners.push(async () => {
-  let license = Studio.getSettingValueByKey('license', false) === true
+  const trialModal = () => Studio.openModal(() => <div><p>Free license is limited to maximum 5 templates.
+    Your jsreport instance is now running in one month trial. Please buy
+    the enterprise license if you want to continue using jsreport after the trial expires.
+  </p>
 
-  if (!license && Studio.getAllEntities().filter((e) => e.__entitySet === 'templates').length > 5) {
-    Studio.openModal(() => <div><p>Free license is limited to maximum 5 templates. For production use, please buy
-      the enterprise license before you continue.
+    <p>The instructions for buying enterprise license can be
+      found <a href='http://jsreport.net/buy' target='_blank'>here</a>.
     </p>
-      <p>The instructions for buying enterprise license can be
-        found <a href='http://jsreport.net/buy' target='_blank'>here</a>.
-      </p>
-    </div>)
+  </div>)
+
+  if (Studio.extensions['licensing'].options.license === 'trial' && Studio.getAllEntities().filter((e) => e.__entitySet === 'templates' && !e.__isNew).length > 5) {
+    trialModal()
   }
 
-  Studio.addToolbarComponent((props) => <div className='toolbar-button'>
-    {license ? <div style={{color: 'orange'}}><i className='fa fa-gavel'></i> ENTERPRISE LICENSE</div> : <div
-      onClick={() => window.open('http://jsreport.net/buy', '_blank')}>
-      <i className='fa fa-gavel'></i> FREE/DEV LICENSE</div>}</div>, 'settings')
+  if (Studio.extensions['licensing'].options.license === 'free') {
+    const interval = setInterval(() => {
+      if (Studio.getAllEntities().filter((e) => e.__entitySet === 'templates' && !e.__isNew).length > 5) {
+        clearInterval(interval)
+        trialModal()
+        Studio.extensions['licensing'].options.license = 'trial'
+        Studio.api.post('/api/licensing/trial', {})
+      }
+    }, 10000)
+  }
+
+  Studio.addToolbarComponent((props) => <div
+    className='toolbar-button' onClick={() => window.open('http://jsreport.net/buy', '_blank')}>
+    <div style={{textTransform: 'capitalize'}}><i className='fa fa-gavel' /> {Studio.extensions['licensing'].options.license}</div>
+  </div>, 'settings')
 })
-
-
