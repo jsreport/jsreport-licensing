@@ -18,12 +18,14 @@
   "dependencies": {
     "bluebird": "3.4.6",
     "in-publish": "2.0.0",
+    "mkdirp": "0.5.1",
     "request": "2.79.0"
   },
   "author": "Jan Blaha",
   "standard": {
     "ignore": [
-      "main.js", "jsreport.config.js"
+      "main.js",
+      "jsreport.config.js"
     ],
     "env": {
       "node": true,
