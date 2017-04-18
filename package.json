@@ -14,7 +14,7 @@
   },
   "keywords": [
     "jsreport"
-  ], 
+  ],
   "dependencies": {
     "bluebird": "3.4.6",
     "in-publish": "2.0.0",
@@ -41,11 +41,11 @@
     "jsreport.config.js"
   ],
   "devDependencies": {
-    "babel-eslint": "7.1.1",
-    "eslint": "3.11.1",
+    "babel-eslint": "7.2.2",
+    "eslint": "3.19.0",
     "eslint-config-standard-jsx": "3.2.0",
-    "eslint-plugin-babel": "4.0.0",
-    "jsreport-studio-dev": "1.0.2",
+    "eslint-plugin-babel": "4.1.1",
+    "jsreport-studio-dev": "1.1.0",
     "standard": "8.6.0"
   }
 }
