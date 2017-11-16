@@ -75,6 +75,9 @@ Studio.readyListeners.push(async () => {
         clearInterval(interval)
         trialModal()
         licensingInfo.type = licensingInfo.license = 'trial'
+        var now = new Date()
+        now.setDate(now.getDate() + 30)
+        licensingInfo.expiresOn = now
         Studio.api.post('/api/licensing/trial', {})
       }
     }, 10000)
