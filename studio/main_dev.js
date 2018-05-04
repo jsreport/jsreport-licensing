@@ -4,7 +4,7 @@ function renderLicenseType (licensingInfo) {
   if (licensingInfo.unreachable) {
     return <p>
         The licensing server was not reachable during the instance startup. The instance now runs in the enterprise mode and the license validation will be performed again during the next restart.
-      </p>
+    </p>
   }
 
   if (licensingInfo.type === 'subscription') {
@@ -37,13 +37,15 @@ function renderLicenseType (licensingInfo) {
 
 Studio.readyListeners.push(async () => {
   var licensingInfo = Studio.extensions['licensing'].options
-  const trialModal = () => Studio.openModal(() => <div><p>Free license is limited to maximum 5 templates.
-    Your jsreport instance is now running in one month trial. Please buy
-    the enterprise license if you want to continue using jsreport after the trial expires.
-  </p>
+  const trialModal = () => Studio.openModal(() => <div>
+    <p>
+      Free license is limited to maximum 5 templates.
+      Your jsreport instance is now running in one month trial. Please buy
+      the enterprise license if you want to continue using jsreport after the trial expires.
+    </p>
 
-    <p>The instructions for buying enterprise license can be
-      found <a href='http://jsreport.net/buy' target='_blank'>here</a>.
+    <p>
+      The instructions for buying enterprise license can be found <a href='http://jsreport.net/buy' target='_blank'>here</a>.
     </p>
   </div>)
 
