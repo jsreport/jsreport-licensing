@@ -1,6 +1,6 @@
 {
   "name": "jsreport-licensing",
-  "version": "1.3.5",
+  "version": "2.0.0",
   "description": "jsreport extension for enterprise license verification ",
   "scripts": {
     "build": "jsreport-studio-build",
