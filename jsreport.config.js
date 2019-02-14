@@ -14,7 +14,8 @@ module.exports = {
         type: 'object',
         properties: {
           useSavedLicenseInfo: { type: 'boolean' }
-        }
+        },
+        $exposeToApi: true
       }
     }
   },

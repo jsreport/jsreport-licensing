@@ -3,6 +3,7 @@
   "version": "2.0.1",
   "description": "jsreport extension for enterprise license verification ",
   "scripts": {
+    "start": "jsreport-studio-start --httpPort 4300",
     "build": "jsreport-studio-build",
     "prepublish": "in-publish && jsreport-studio-build || not-in-publish",
     "test": "standard"
