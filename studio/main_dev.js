@@ -37,6 +37,7 @@ function renderLicenseType (licensingInfo) {
 
 Studio.readyListeners.push(async () => {
   var licensingInfo = Studio.extensions['licensing'].options
+
   const trialModal = () => Studio.openModal(() => <div>
     <p>
       Free license is limited to maximum 5 templates.
