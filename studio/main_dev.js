@@ -9,15 +9,20 @@ function renderLicenseType (licensingInfo) {
 
   if (licensingInfo.type === 'subscription') {
     if (licensingInfo.pendingExpiration === true) {
-      return <p>
+      return <div>
+        <p>
         The subscription is no longer active probably due to failed payment or cancellation. The subscription can be used for maximum one month in inactive state.
-        Please verify the state of your subscription in the <a href='https://gumroad.com/library' target='_blank'>gumroad library</a>.
-      </p>
+        </p>
+        <PaymentNote paymentType={licensingInfo.paymentType} />
+      </div>
     }
 
-    return <p>The subscription renewal is planned on {licensingInfo.expiresOn.toLocaleDateString()} and the license will be again validated afterwards.
-      You can find further information about the particular subscription charges in <a href='https://gumroad.com/library' target='_blank'>gumroad library</a>.
-    </p>
+    return <div>
+      <p>
+      The subscription renewal is planned on {licensingInfo.expiresOn.toLocaleDateString()} and the license will be again validated afterwards.
+      </p>
+      <PaymentNote paymentType={licensingInfo.paymentType} />
+    </div>
   }
 
   if (licensingInfo.type === 'perpetual') {
@@ -33,6 +38,28 @@ function renderLicenseType (licensingInfo) {
   if (licensingInfo.type === 'free') {
     return <p>You can use up to 5 templates for free.</p>
   }
+}
+
+function PaymentNote ({ paymentType }) {
+  if (paymentType === 'gumroad') {
+    return <p>
+        You can find further information about payments in the <a href='https://gumroad.com/library' target='_blank'>gumroad library</a>.`
+    </p>
+  }
+
+  if (paymentType === 'manual') {
+    return <p>
+      The license is payed through manual invoices and bank transfers. Please contact <a href='mailto: support@jsreport.net'>support@jsreport.net</a> to get further information.
+    </p>
+  }
+
+  if (paymentType === 'braintree') {
+    return <p>
+      You can find further information about payments in the <a href='https://jsreport.net/payments/customer' target='_blank'>customer portal</a>.
+    </p>
+  }
+
+  return <span />
 }
 
 Studio.readyListeners.push(async () => {
@@ -59,9 +86,10 @@ Studio.readyListeners.push(async () => {
   const pendingExpirationModal = () => Studio.openModal(() => <div>
     <h2>subscription has expired</h2>
     <p>
-      The subscription is no longer active probably due to failed payment or cancellation. The subscription can be used for maximum one month in inactive state.
-      Please verify the state of your subscription in the <a href='https://gumroad.com/library' target='_blank'>gumroad library</a>.
+      The subscription is no longer active probably due to failed payment or cancellation.
+      The subscription can be used for maximum one month in inactive state.
     </p>
+    <PaymentNote paymentType={licensingInfo.paymentType} />
   </div>)
 
   if (licensingInfo.type === 'trial' && Studio.getAllEntities().filter((e) => e.__entitySet === 'templates' && !e.__isNew).length > 5) {

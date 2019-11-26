@@ -111,30 +111,28 @@ function renderLicenseType(licensingInfo) {
   if (licensingInfo.type === 'subscription') {
     if (licensingInfo.pendingExpiration === true) {
       return React.createElement(
-        'p',
+        'div',
         null,
-        'The subscription is no longer active probably due to failed payment or cancellation. The subscription can be used for maximum one month in inactive state. Please verify the state of your subscription in the ',
         React.createElement(
-          'a',
-          { href: 'https://gumroad.com/library', target: '_blank' },
-          'gumroad library'
+          'p',
+          null,
+          'The subscription is no longer active probably due to failed payment or cancellation. The subscription can be used for maximum one month in inactive state.'
         ),
-        '.'
+        React.createElement(PaymentNote, { paymentType: licensingInfo.paymentType })
       );
     }
 
     return React.createElement(
-      'p',
+      'div',
       null,
-      'The subscription renewal is planned on ',
-      licensingInfo.expiresOn.toLocaleDateString(),
-      ' and the license will be again validated afterwards. You can find further information about the particular subscription charges in ',
       React.createElement(
-        'a',
-        { href: 'https://gumroad.com/library', target: '_blank' },
-        'gumroad library'
+        'p',
+        null,
+        'The subscription renewal is planned on ',
+        licensingInfo.expiresOn.toLocaleDateString(),
+        ' and the license will be again validated afterwards.'
       ),
-      '.'
+      React.createElement(PaymentNote, { paymentType: licensingInfo.paymentType })
     );
   }
 
@@ -167,6 +165,54 @@ function renderLicenseType(licensingInfo) {
       'You can use up to 5 templates for free.'
     );
   }
+}
+
+function PaymentNote(_ref) {
+  var paymentType = _ref.paymentType;
+
+  if (paymentType === 'gumroad') {
+    return React.createElement(
+      'p',
+      null,
+      'You can find further information about payments in the ',
+      React.createElement(
+        'a',
+        { href: 'https://gumroad.com/library', target: '_blank' },
+        'gumroad library'
+      ),
+      '.`'
+    );
+  }
+
+  if (paymentType === 'manual') {
+    return React.createElement(
+      'p',
+      null,
+      'The license is payed through manual invoices and bank transfers. Please contact ',
+      React.createElement(
+        'a',
+        { href: 'mailto: support@jsreport.net' },
+        'support@jsreport.net'
+      ),
+      ' to get further information.'
+    );
+  }
+
+  if (paymentType === 'braintree') {
+    return React.createElement(
+      'p',
+      null,
+      'You can find further information about payments in the ',
+      React.createElement(
+        'a',
+        { href: 'https://jsreport.net/payments/customer', target: '_blank' },
+        'customer portal'
+      ),
+      '.'
+    );
+  }
+
+  return React.createElement('span', null);
 }
 
 _jsreportStudio2.default.readyListeners.push(_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -242,14 +288,9 @@ _jsreportStudio2.default.readyListeners.push(_asyncToGenerator( /*#__PURE__*/reg
                 React.createElement(
                   'p',
                   null,
-                  'The subscription is no longer active probably due to failed payment or cancellation. The subscription can be used for maximum one month in inactive state. Please verify the state of your subscription in the ',
-                  React.createElement(
-                    'a',
-                    { href: 'https://gumroad.com/library', target: '_blank' },
-                    'gumroad library'
-                  ),
-                  '.'
-                )
+                  'The subscription is no longer active probably due to failed payment or cancellation. The subscription can be used for maximum one month in inactive state.'
+                ),
+                React.createElement(PaymentNote, { paymentType: licensingInfo.paymentType })
               );
             });
           };
