@@ -39,9 +39,9 @@
     "node": ">=8.9"
   },
   "dependencies": {
+    "axios": "0.19.2",
     "bluebird": "3.5.4",
-    "mkdirp": "0.5.1",
-    "request": "2.88.0"
+    "mkdirp": "0.5.1"
   },
   "devDependencies": {
     "babel-eslint": "8.2.2",
