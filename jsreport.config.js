@@ -13,7 +13,8 @@ module.exports = {
       'licensing': {
         type: 'object',
         properties: {
-          useSavedLicenseInfo: { type: 'boolean' }
+          useSavedLicenseInfo: { type: 'boolean' },
+          licensingServerUrl: { type: 'string', default: 'https://jsreportonline.net/license-key' }
         }
       }
     }

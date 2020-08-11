@@ -316,7 +316,19 @@ _jsreportStudio2.default.readyListeners.push(_asyncToGenerator( /*#__PURE__*/reg
                 var now = new Date();
                 now.setDate(now.getDate() + 30);
                 licensingInfo.expiresOn = now;
-                _jsreportStudio2.default.api.post('/api/licensing/trial', {});
+                _jsreportStudio2.default.api.post('/api/licensing/trial', {}).then(function (m) {
+                  if (m.status === 1) {
+                    setTimeout(function () {
+                      return _jsreportStudio2.default.openModal(function () {
+                        return React.createElement(
+                          'div',
+                          null,
+                          m.message
+                        );
+                      });
+                    }, 5000);
+                  }
+                });
               }
             }, 10000);
           }

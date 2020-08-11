@@ -6,7 +6,7 @@
     "start": "jsreport-studio-start --httpPort 4300",
     "build": "jsreport-studio-build",
     "prepublish": "in-publish && jsreport-studio-build || not-in-publish",
-    "test": "standard"
+    "test": "mocha --timeout 10000 --recursive test --exit && standard"
   },
   "homepage": "https://github.com/jsreport/jsreport-licensing",
   "repository": {
@@ -49,7 +49,12 @@
     "eslint-config-standard-jsx": "5.0.0",
     "eslint-plugin-babel": "4.1.2",
     "in-publish": "2.0.1",
+    "jsreport-core": "2.9.0",
     "jsreport-studio-dev": "1.5.0",
-    "standard": "11.0.1"
+    "jsreport-templates": "2.4.0",
+    "mocha": "8.1.1",
+    "should": "13.2.3",
+    "standard": "11.0.1",
+    "uuid": "8.3.0"
   }
 }

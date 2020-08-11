@@ -109,7 +109,11 @@ Studio.readyListeners.push(async () => {
         var now = new Date()
         now.setDate(now.getDate() + 30)
         licensingInfo.expiresOn = now
-        Studio.api.post('/api/licensing/trial', {})
+        Studio.api.post('/api/licensing/trial', {}).then(m => {
+          if (m.status === 1) {
+            setTimeout(() => Studio.openModal(() => <div>{m.message}</div>), 5000)
+          }
+        })
       }
     }, 10000)
   }
