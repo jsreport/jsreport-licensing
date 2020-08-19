@@ -141,4 +141,73 @@ describe('licensing', () => {
     })
     return jsreport.init()
   })
+
+  it('should mask license key in the logs', async () => {
+    const messages = []
+    const key = uuid()
+    jsreport.logger.log = (level, m) => {
+      messages.push(m)
+    }
+    jsreport.options.licenseKey = key
+    await createServer((req, res) => {
+      res.end(
+        JSON.stringify({
+          status: 0,
+          message: 'ok'
+        })
+      )
+    })
+    await insertTemplates(6)
+    await jsreport.init()
+
+    const message = messages.find((m) => m.includes('Verifying license key'))
+    message.should.containEql('XXX')
+    message.should.not.containEql(key)
+  })
+
+  it('should mask short license key in the logs', async () => {
+    const messages = []
+    const key = 'hello'
+    jsreport.logger.log = (level, m) => {
+      messages.push(m)
+    }
+    jsreport.options.licenseKey = key
+    await createServer((req, res) => {
+      res.end(
+        JSON.stringify({
+          status: 0,
+          message: 'ok'
+        })
+      )
+    })
+    await insertTemplates(6)
+    await jsreport.init()
+
+    const message = messages.find((m) => m.includes('Verifying license key'))
+    message.should.containEql('XXX')
+    message.should.not.containEql(key)
+  })
+
+  it('should not mask free license ky', async () => {
+    const messages = []
+    const key = 'free'
+    jsreport.logger.log = (level, m) => {
+      messages.push(m)
+    }
+    jsreport.options.licenseKey = key
+    await createServer((req, res) => {
+      res.end(
+        JSON.stringify({
+          status: 0,
+          message: 'ok'
+        })
+      )
+    })
+    await insertTemplates(6)
+    await jsreport.init()
+
+    const message = messages.find((m) => m.includes('Verifying license key'))
+    message.should.not.containEql('XXX')
+    message.should.containEql(key)
+  })
 })
