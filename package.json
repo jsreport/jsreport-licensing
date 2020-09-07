@@ -1,6 +1,6 @@
 {
   "name": "jsreport-licensing",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "jsreport extension for enterprise license verification ",
   "scripts": {
     "start": "jsreport-studio-start --httpPort 4300",
